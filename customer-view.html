@@ -1,0 +1,13 @@
+package com.pharmalens.service;
+
+import com.pharmalens.entity.User;
+
+public interface UserService {
+
+    User saveUser(User user);
+
+    User findByUsername(String username);
+    
+    User login(String username, String password);
+
+}

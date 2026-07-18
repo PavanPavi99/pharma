@@ -1,0 +1,21 @@
+package com.pharmalens.service;
+
+import java.util.List;
+
+import com.pharmalens.entity.Supplier;
+
+public interface SupplierService {
+
+    // Save Supplier
+    Supplier saveSupplier(Supplier supplier);
+
+    // Get All Suppliers
+    List<Supplier> getAllSuppliers();
+
+    // Get Supplier By Id
+    Supplier getSupplierById(Long id);
+
+    // Delete Supplier
+    void deleteSupplier(Long id);
+
+}

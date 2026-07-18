@@ -1,0 +1,63 @@
+package com.pharmalens.serviceimpl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.pharmalens.entity.Bill;
+import com.pharmalens.entity.Medicine;
+import com.pharmalens.repository.BillRepository;
+import com.pharmalens.repository.MedicineRepository;
+import com.pharmalens.service.BillService;
+
+@Service
+public class BillServiceImpl implements BillService {
+
+    @Autowired
+    private BillRepository billRepository;
+
+    @Autowired
+    private MedicineRepository medicineRepository;
+
+    @Override
+    public Bill saveBill(Bill bill) {
+
+        // Find the selected medicine
+        Medicine medicine = medicineRepository.findByMedicineName(bill.getMedicineName());
+
+        if (medicine != null) {
+
+            // Check stock availability
+            if (medicine.getQuantity() >= bill.getQuantity()) {
+
+                // Reduce stock
+                medicine.setQuantity(medicine.getQuantity() - bill.getQuantity());
+
+                // Save updated medicine
+                medicineRepository.save(medicine);
+
+            } else {
+                throw new RuntimeException("Not enough stock available!");
+            }
+        }
+
+        // Save bill
+        return billRepository.save(bill);
+    }
+
+    @Override
+    public List<Bill> getAllBills() {
+        return billRepository.findAll();
+    }
+
+    @Override
+    public Bill getBillById(Long id) {
+        return billRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void deleteBill(Long id) {
+        billRepository.deleteById(id);
+    }
+}

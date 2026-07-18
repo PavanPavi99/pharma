@@ -1,0 +1,13 @@
+package com.pharmalens;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class PharmalensApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}

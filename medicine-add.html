@@ -1,0 +1,55 @@
+package com.pharmalens.serviceimpl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.pharmalens.entity.Medicine;
+import com.pharmalens.repository.BillRepository;
+import com.pharmalens.repository.CustomerRepository;
+import com.pharmalens.repository.MedicineRepository;
+import com.pharmalens.repository.SupplierRepository;
+import com.pharmalens.service.DashboardService;
+
+@Service
+public class DashboardServiceImpl implements DashboardService {
+
+    @Autowired
+    private MedicineRepository medicineRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    @Autowired
+    private SupplierRepository supplierRepository;
+
+    @Autowired
+    private BillRepository billRepository;
+
+    @Override
+    public long getTotalMedicines() {
+        return medicineRepository.count();
+    }
+
+    @Override
+    public long getTotalCustomers() {
+        return customerRepository.count();
+    }
+
+    @Override
+    public long getTotalSuppliers() {
+        return supplierRepository.count();
+    }
+
+    @Override
+    public long getTotalBills() {
+        return billRepository.count();
+    }
+
+    @Override
+    public List<Medicine> getLowStockMedicines() {
+        return medicineRepository.findLowStockMedicines();
+    }
+
+}

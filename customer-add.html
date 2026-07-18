@@ -1,0 +1,20 @@
+package com.pharmalens.service;
+
+import java.util.List;
+
+import com.pharmalens.entity.Medicine;
+
+public interface MedicineService {
+
+    Medicine saveMedicine(Medicine medicine);
+
+    List<Medicine> getAllMedicines();
+
+    Medicine getMedicineById(Long id);
+
+    void deleteMedicine(Long id);
+
+    // Search medicine
+    List<Medicine> searchMedicine(String keyword);
+
+}

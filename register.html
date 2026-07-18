@@ -1,0 +1,46 @@
+package com.pharmalens.serviceimpl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.pharmalens.entity.Supplier;
+import com.pharmalens.repository.SupplierRepository;
+import com.pharmalens.service.SupplierService;
+
+@Service
+public class SupplierServiceImpl implements SupplierService {
+
+    @Autowired
+    private SupplierRepository supplierRepository;
+
+
+    // Save Supplier
+    @Override
+    public Supplier saveSupplier(Supplier supplier) {
+        return supplierRepository.save(supplier);
+    }
+
+
+    // Get All Suppliers
+    @Override
+    public List<Supplier> getAllSuppliers() {
+        return supplierRepository.findAll();
+    }
+
+
+    // Get Supplier By Id
+    @Override
+    public Supplier getSupplierById(Long id) {
+        return supplierRepository.findById(id).orElse(null);
+    }
+
+
+    // Delete Supplier
+    @Override
+    public void deleteSupplier(Long id) {
+        supplierRepository.deleteById(id);
+    }
+
+}

@@ -1,0 +1,19 @@
+package com.pharmalens.service;
+
+import java.util.List;
+
+import com.pharmalens.entity.Medicine;
+
+public interface DashboardService {
+
+    long getTotalMedicines();
+
+    long getTotalCustomers();
+
+    long getTotalSuppliers();
+
+    long getTotalBills();
+
+    List<Medicine> getLowStockMedicines();
+
+}

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Medicine List</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+
+<style>
+
+body{
+    background:#f5f7fa;
+}
+
+
+.navbar{
+    background:linear-gradient(90deg,#0d6efd,#003b95);
+}
+
+
+.navbar-brand{
+    color:white;
+    font-weight:bold;
+    font-size:22px;
+}
+
+
+.card{
+    border:none;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+
+
+.table th{
+    text-align:center;
+}
+
+
+.table td{
+    text-align:center;
+}
+
+
+.stock-low{
+    color:red;
+    font-weight:bold;
+}
+
+
+.stock-good{
+    color:green;
+    font-weight:bold;
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<nav class="navbar navbar-expand-lg">
+
+<div class="container-fluid">
+
+
+<a class="navbar-brand" href="/dashboard">
+
+💊 PharmaLens
+
+</a>
+
+
+<a class="btn btn-light" href="/dashboard">
+
+<i class="bi bi-house"></i>
+Dashboard
+
+</a>
+
+
+</div>
+
+</nav>
+
+
+
+
+<div class="container mt-4">
+
+
+<div class="card">
+
+
+<div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+
+
+<h4>
+<i class="bi bi-capsule"></i>
+Medicine Management
+</h4>
+
+
+
+<a href="/medicine/add" class="btn btn-light">
+
+<i class="bi bi-plus-circle"></i>
+
+Add Medicine
+
+</a>
+
+
+</div>
+
+
+
+<div class="card-body">
+
+
+<!-- Search Medicine -->
+
+<form th:action="@{/medicine/search}" method="get" class="mb-4">
+
+
+<div class="input-group">
+
+
+<input type="text"
+       name="keyword"
+       class="form-control"
+       placeholder="Search Medicine Name">
+
+
+<button class="btn btn-primary">
+
+<i class="bi bi-search"></i>
+
+Search
+
+</button>
+
+
+<a href="/medicine" class="btn btn-secondary">
+
+Reset
+
+</a>
+
+
+</div>
+
+
+</form>
+
+
+
+
+<div class="alert alert-info">
+
+Total Medicines:
+
+<b th:text="${#lists.size(medicines)}">
+0
+</b>
+
+</div>
+
+
+
+
+
+<table class="table table-bordered table-hover">
+
+
+<thead class="table-primary">
+
+
+<tr>
+
+<th>ID</th>
+
+<th>Medicine Name</th>
+
+<th>Company</th>
+
+<th>Category</th>
+
+<th>Price</th>
+
+<th>Quantity</th>
+
+<th>Expiry Date</th>
+
+<th>Status</th>
+
+<th>Actions</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+
+<tbody>
+
+
+<tr th:each="medicine : ${medicines}">
+
+
+<td th:text="${medicine.id}"></td>
+
+
+<td th:text="${medicine.medicineName}"></td>
+
+
+<td th:text="${medicine.company}"></td>
+
+
+<td th:text="${medicine.category}"></td>
+
+
+<td>
+
+₹ <span th:text="${medicine.price}"></span>
+
+</td>
+
+
+
+<td th:text="${medicine.quantity}"></td>
+
+
+
+<td th:text="${medicine.expiryDate}"></td>
+
+
+
+
+<td>
+
+
+<span th:if="${medicine.quantity <= 10}"
+      class="badge bg-danger">
+
+Low Stock
+
+</span>
+
+
+
+<span th:if="${medicine.quantity > 10}"
+      class="badge bg-success">
+
+Available
+
+</span>
+
+
+</td>
+
+
+
+
+
+<td>
+
+
+<a th:href="@{/medicine/edit/{id}(id=${medicine.id})}"
+class="btn btn-warning btn-sm">
+
+
+<i class="bi bi-pencil"></i>
+
+Edit
+
+</a>
+
+
+
+<a th:href="@{/medicine/delete/{id}(id=${medicine.id})}"
+class="btn btn-danger btn-sm"
+onclick="return confirm('Delete this medicine?')">
+
+
+<i class="bi bi-trash"></i>
+
+Delete
+
+</a>
+
+
+</td>
+
+
+
+</tr>
+
+
+</tbody>
+
+
+</table>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+</body>
+
+</html>
